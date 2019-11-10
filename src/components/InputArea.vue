@@ -45,7 +45,7 @@ export default class InputArea extends Vue {
       result += elem.toSVGItem()
     }
     // if(DOM as Document){
-
+    console.log(result)
     DOM.innerHTML = `<svg width="250" height="250" xmlns="http://www.w3.org/2000/svg">${result}</svg>`
     // }
   }
@@ -110,10 +110,11 @@ export default class InputArea extends Vue {
             if (demensions.length !== 2) {
               return new SVGError('Can not divided into 2 demension point', line, index)
             } else {
-              if (this.numberValid(demensions[0])) {
+              if (!this.numberValid(demensions[0])) {
+                console.log(demensions[0])
                 return new SVGError('Can not parse x demension', line, index)
               }
-              if (this.numberValid(demensions[1])) {
+              if (!this.numberValid(demensions[1])) {
                 return new SVGError('Can not parse y demension', line, index)
               }
               return undefined
@@ -158,8 +159,9 @@ export default class InputArea extends Vue {
   }
 
   private numberValid (x: string) {
-    const numberform = /\d+/g
-    if (x.match(numberform)) {
+    const numberform = new RegExp('^[0-9]+$')
+    console.log(numberform.test(x))
+    if (numberform.test(x)) {
       return true
     } else return false
   }

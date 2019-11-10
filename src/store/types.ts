@@ -32,7 +32,7 @@ export class SVGElement {
         return `<rect x="${this.p[0]}" y="${this.p[1]}" width="${this.p[2]}" height="${this.p[3]}" fill="${this.color}"/>`
       case 'polygon':
         let joinarray = this.p.join(' ')
-        return `<polygon points="${joinarray}" fill="${this.color}">`
+        return `<polygon points="${joinarray}" fill="${this.color}"/>`
       default:
         return ''
     }
