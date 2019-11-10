@@ -27,11 +27,6 @@ export default class InputArea extends Vue {
   txtChange (value: string, oldValue: string) {
     if (typeof value === 'string') {
       let sItems = value.split(/\r?\n/)
-      // this.data.apply({
-      //   desc: value,
-      //   alertitems: this.alertList(sItems)
-      // })
-      // this.data. sItems
       this.alertItem = this.alertList(sItems)
     }
   }
@@ -44,10 +39,9 @@ export default class InputArea extends Vue {
       let elem = this.SVGTrans(svgtxt[i]) as SVGElement
       result += elem.toSVGItem()
     }
-    // if(DOM as Document){
-    console.log(result)
+
+    // console.log(result)
     DOM.innerHTML = `<svg width="250" height="250" xmlns="http://www.w3.org/2000/svg">${result}</svg>`
-    // }
   }
 
   private SVGTrans (txt: string) {
@@ -59,6 +53,8 @@ export default class InputArea extends Vue {
         return new SVGElement('circle', itemtxt.slice(1))
       case 'p':
         return new SVGElement('polygon', itemtxt.slice(1))
+      case 'e':
+        return new SVGElement('ellipse', itemtxt.slice(1))
       default:
         return undefined
     }
@@ -94,6 +90,16 @@ export default class InputArea extends Vue {
           console.log(itemtxt.length)
           return new SVGError(
             'Circle should have 3 parameters',
+            line,
+            index + itemtxt[0].length + 1
+          )
+        } else {
+          return this.checkNumber(itemtxt, line, index)
+        }
+      case 'e':
+        if (itemtxt.length !== 5) {
+          return new SVGError(
+            'Ellipse should have 4 parameters',
             line,
             index + itemtxt[0].length + 1
           )
@@ -160,7 +166,6 @@ export default class InputArea extends Vue {
 
   private numberValid (x: string) {
     const numberform = new RegExp('^[0-9]+$')
-    console.log(numberform.test(x))
     if (numberform.test(x)) {
       return true
     } else return false

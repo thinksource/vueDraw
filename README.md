@@ -5,6 +5,12 @@
 yarn install
 ```
 
+## Project Bond object:
+```
+e 200 80 60 50
+```
+e for ellipse 
+
 ### Compiles and hot-reloads for development
 ```
 yarn serve
@@ -24,6 +30,8 @@ yarn test:unit
 ```
 yarn lint
 ```
+
+
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).

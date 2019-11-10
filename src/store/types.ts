@@ -33,6 +33,8 @@ export class SVGElement {
       case 'polygon':
         let joinarray = this.p.join(' ')
         return `<polygon points="${joinarray}" fill="${this.color}"/>`
+      case 'ellipse':
+        return `<ellipse cx="${this.p[0]}" cy="${this.p[1]}" rx="${this.p[2]}" ry="${this.p[3]}" fill="${this.color}"/>`
       default:
         return ''
     }
