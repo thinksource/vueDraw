@@ -37,28 +37,30 @@ export default class InputArea extends Vue {
   }
 
   drawSVG () : void {
-    let DOM = document.getElementById('SVGcontainer')
-    let svgtxt = this.desc.split(/\r?\n/)
+    let DOM = document.getElementById('SVGcontainer') as HTMLElement
+    let svgtxt = this.desc.split('\n')
     let result = ''
     for (let i in svgtxt) {
-      result += this.SVGTrans(i)
+      let elem = this.SVGTrans(svgtxt[i]) as SVGElement
+      result += elem.toSVGItem()
     }
+    // if(DOM as Document){
+
+    DOM.innerHTML = `<svg width="250" height="250" xmlns="http://www.w3.org/2000/svg">${result}</svg>`
+    // }
   }
 
   private SVGTrans (txt: string) {
     let itemtxt = txt.split(' ')
     switch (itemtxt[0].toLowerCase()) {
       case 'r':
-        itemtxt.shift()
-        return new SVGElement('rent', itemtxt)
+        return new SVGElement('rect', itemtxt.slice(1))
       case 'c':
-        itemtxt.shift()
-        return new SVGElement('circle', itemtxt)
+        return new SVGElement('circle', itemtxt.slice(1))
       case 'p':
-        itemtxt.shift()
-        return new SVGElement('polygon', itemtxt)
+        return new SVGElement('polygon', itemtxt.slice(1))
       default:
-        return ''
+        return undefined
     }
   }
 
@@ -109,17 +111,22 @@ export default class InputArea extends Vue {
               return new SVGError('Can not divided into 2 demension point', line, index)
             } else {
               if (this.numberValid(demensions[0])) {
-                return new SVGError ('Can not parse x demension', line, index)
-                }
-              if ( this.numberValid(demensions[1])) {
-                return new SVGError ('Can not parse y demension', line, index)
-                }
+                return new SVGError('Can not parse x demension', line, index)
+              }
+              if (this.numberValid(demensions[1])) {
+                return new SVGError('Can not parse y demension', line, index)
+              }
               return undefined
             }
           }
         }
+        break
       default: {
-        return new SVGError(`The SVG object can not begin with ${itemtxt[0]}`, line, 0)
+        if (itemtxt.length > 0) {
+          return new SVGError(`The SVG object can not begin with ${itemtxt[0]}`, line, 0)
+        } else {
+          return undefined
+        }
       }
     }
   }
