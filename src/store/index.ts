@@ -5,8 +5,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    rendtext: ''
   },
   mutations: {
+    changetext (state) {
+
+    }
+  },
+  getters: {
+    text2svg (state) {
+    }
   },
   actions: {
   },
