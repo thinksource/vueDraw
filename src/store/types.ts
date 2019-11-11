@@ -70,7 +70,7 @@ export class SVGError {
         }
         break
       default: {
-        if (itemtxt.length > 0) {
+        if (txt !== '') {
           return new SVGError(`The SVG object can not begin with ${itemtxt[0]}`, line, 0)
         } else {
           return undefined

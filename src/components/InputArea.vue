@@ -27,7 +27,7 @@ export default class InputArea extends Vue {
   @Watch('desc')
   txtChange (value: string, oldValue: string) {
     if (typeof value === 'string') {
-      let sItems = value.split(/\r?\n/)
+      let sItems = value.split(/\n/)
       this.alertItems = this.alertList(sItems)
     }
   }
