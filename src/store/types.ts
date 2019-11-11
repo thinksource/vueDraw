@@ -125,6 +125,9 @@ export class SVGElement {
   }
 
   toSVGItem () {
+    // console.log('SVG string running')
+    // console.log(this.name.toLowerCase())
+    // console.log(this.name.toLowerCase() === 'circle')
     switch (this.name.toLowerCase()) {
       case 'circle':
         return `<circle cx="${this.p[0]}" cy="${this.p[1]}" r="${this.p[2]}" fill="${this.color}"/>`

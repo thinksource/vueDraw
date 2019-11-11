@@ -42,7 +42,7 @@ export default class InputArea extends Vue {
         result += elem.toSVGItem()
       }
 
-      // console.log(result)
+      console.log(result)
       DOM.innerHTML = `<svg width="250" height="250" xmlns="http://www.w3.org/2000/svg">${result}</svg>`
     } else {
       DOM.innerHTML = `<canvas width="800" id="myCanvas" height="100"
