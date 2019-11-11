@@ -117,11 +117,11 @@ export class SVGElement {
   name: string
   p: Array<string>
   color: string
-  allColor = ['Azure', 'Beige', 'Blcak', 'Blue', 'Brown', 'Chocolate', 'Coral', 'Cornsilk', 'Cyan', 'Gray', 'Green', 'Ivory', 'Lime', 'Linen', 'Magenta', 'Navy', 'Olive', 'Orange', 'Orchid', 'Peru', 'Pink', 'Plum', 'Purple', 'Red', 'Silver', 'Tan', 'Violet', 'Wheat', 'Yellow']
+  static allColor = ['Azure', 'Beige', 'Blcak', 'Blue', 'Brown', 'Chocolate', 'Coral', 'Cornsilk', 'Cyan', 'Gray', 'Green', 'Ivory', 'Lime', 'Linen', 'Magenta', 'Navy', 'Olive', 'Orange', 'Orchid', 'Peru', 'Pink', 'Plum', 'Purple', 'Red', 'Silver', 'Tan', 'Violet', 'Wheat', 'Yellow']
   constructor (name: string, parameters: Array<string>, color?: string) {
     this.name = name
     this.p = parameters
-    this.color = color || this.allColor[Math.floor(Math.random() * this.allColor.length)]
+    this.color = color || SVGElement.allColor[Math.floor(Math.random() * SVGElement.allColor.length)]
   }
 
   toSVGItem () {

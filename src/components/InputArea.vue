@@ -22,7 +22,7 @@ import { it } from 'mocha'
 
 @Component
 export default class InputArea extends Vue {
-  desc: string=''
+   @Prop() desc!: string;
   alertItems: Array<SVGError>=[]
   @Watch('desc')
   txtChange (value: string, oldValue: string) {
@@ -34,6 +34,10 @@ export default class InputArea extends Vue {
 
   drawSVG () : void {
     let DOM = document.getElementById('SVGcontainer') as HTMLElement
+    if (!this.desc) {
+      this.fillCanvasTxt('Empty TextArea!', DOM)
+      return
+    }
     let svgtxt = this.desc.split('\n')
     let result = ''
     if (this.alertItems.length === 0) {
@@ -47,17 +51,20 @@ export default class InputArea extends Vue {
       // console.log(result)
       DOM.innerHTML = `<svg width="250" height="250" xmlns="http://www.w3.org/2000/svg">${result}</svg>`
     } else {
-      DOM.innerHTML = `<canvas width="800" id="myCanvas" height="100"
-      style="border:1px solid #d3d3d3;"
-      </canvas>`
-      const canvas = document.getElementById('myCanvas') as HTMLCanvasElement
-      var ctx = canvas.getContext('2d') as CanvasRenderingContext2D
-      ctx.font = '30px Arial'
-      ctx.fillStyle = 'red'
-      ctx.fillText('Errors during parse SVG Items', 10, 50)
+      this.fillCanvasTxt('Errors during parse SVG Items', DOM)
     }
   }
 
+  private fillCanvasTxt (txt: string, dom: HTMLElement) {
+    dom.innerHTML = `<canvas width="800" id="myCanvas" height="100"
+    style="border:1px solid #d3d3d3;"
+    </canvas>`
+    const canvas = document.getElementById('myCanvas') as HTMLCanvasElement
+    var ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+    ctx.font = '30px Arial'
+    ctx.fillStyle = 'red'
+    ctx.fillText(txt, 10, 50)
+  }
   private SVGTrans (txt: string) {
     let itemtxt = txt.split(/\s+/)
     switch (itemtxt[0].toLowerCase()) {
