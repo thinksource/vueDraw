@@ -39,10 +39,12 @@ export default class InputArea extends Vue {
     if (this.alertItems.length === 0) {
       for (let i in svgtxt) {
         let elem = this.SVGTrans(svgtxt[i]) as SVGElement
-        result += elem.toSVGItem()
+        if (typeof elem === 'object') {
+          result += elem.toSVGItem()
+        }
       }
 
-      console.log(result)
+      // console.log(result)
       DOM.innerHTML = `<svg width="250" height="250" xmlns="http://www.w3.org/2000/svg">${result}</svg>`
     } else {
       DOM.innerHTML = `<canvas width="800" id="myCanvas" height="100"
@@ -57,7 +59,7 @@ export default class InputArea extends Vue {
   }
 
   private SVGTrans (txt: string) {
-    let itemtxt = txt.split(' ')
+    let itemtxt = txt.split(/\s+/)
     switch (itemtxt[0].toLowerCase()) {
       case 'r':
         return new SVGElement('rect', itemtxt.slice(1))

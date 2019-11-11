@@ -13,7 +13,7 @@ export class SVGError {
   }
 
   static readtxtWithErrors (txt: string, line: number) {
-    let itemtxt = txt.split(' ')
+    let itemtxt = txt.split(/\s+/)
     let index = 0
     switch (itemtxt[0].toLowerCase()) {
       case 'r':
