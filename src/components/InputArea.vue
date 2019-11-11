@@ -9,7 +9,7 @@
       <li v-for="item in alertItems" :key="item">{{ item.toString() }}</li>
     </ul>
     <button @click="drawSVG">Draw SVG</button>
-    <div id="SVGcontainer" ref="SVG">
+    <div id="SVGcontainer" ref="SVG" class="draw">
 
     </div>
   </div>
@@ -56,12 +56,12 @@ export default class InputArea extends Vue {
   }
 
   private fillCanvasTxt (txt: string, dom: HTMLElement) {
-    dom.innerHTML = `<canvas width="800" id="myCanvas" height="100"
+    dom.innerHTML = `<canvas width="250" id="myCanvas" height="200"
     style="border:1px solid #d3d3d3;"
     </canvas>`
     const canvas = document.getElementById('myCanvas') as HTMLCanvasElement
     var ctx = canvas.getContext('2d') as CanvasRenderingContext2D
-    ctx.font = '30px Arial'
+    ctx.font = '16px Arial'
     ctx.fillStyle = 'red'
     ctx.fillText(txt, 10, 50)
   }
@@ -122,5 +122,12 @@ button {
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
+}
+.draw {
+  text-align: center;
+  height: 250px;
+  width: 250px;
+  border-style: solid;
+  margin: auto;
 }
 </style>

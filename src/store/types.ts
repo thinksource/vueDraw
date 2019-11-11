@@ -48,7 +48,8 @@ export class SVGError {
           return SVGError.checkNumber(itemtxt, line, index)
         }
       case 'p':
-        if (itemtxt.length < 3) {
+        console.log(itemtxt)
+        if (itemtxt.length <= 3 || itemtxt[3] === '') {
           return new SVGError('Polygon should have more than 3 point', line, txt.length - 1)
         } else {
           for (let i = 1; i < itemtxt.length; i++) {
