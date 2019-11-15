@@ -125,6 +125,22 @@ export class SVGElement {
     this.color = color || SVGElement.allColor[Math.floor(Math.random() * SVGElement.allColor.length)]
   }
 
+  static readFromString (txt: string) {
+    let itemtxt = txt.split(/\s+/)
+    switch (itemtxt[0].toLowerCase()) {
+      case 'r':
+        return new SVGElement('rect', itemtxt.slice(1))
+      case 'c':
+        return new SVGElement('circle', itemtxt.slice(1))
+      case 'p':
+        return new SVGElement('polygon', itemtxt.slice(1))
+      case 'e':
+        return new SVGElement('ellipse', itemtxt.slice(1))
+      default:
+        return undefined
+    }
+  }
+
   toSVGItem () {
     // console.log('SVG string running')
     // console.log(this.name.toLowerCase())

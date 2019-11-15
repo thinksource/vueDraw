@@ -42,7 +42,7 @@ export default class InputArea extends Vue {
     let result = ''
     if (this.alertItems.length === 0) {
       for (let i in svgtxt) {
-        let elem = this.SVGTrans(svgtxt[i]) as SVGElement
+        let elem = SVGElement.readFromString(svgtxt[i]) as SVGElement
         if (typeof elem === 'object') {
           result += elem.toSVGItem()
         }
@@ -64,21 +64,6 @@ export default class InputArea extends Vue {
     ctx.font = '16px Arial'
     ctx.fillStyle = 'red'
     ctx.fillText(txt, 10, 50)
-  }
-  private SVGTrans (txt: string) {
-    let itemtxt = txt.split(/\s+/)
-    switch (itemtxt[0].toLowerCase()) {
-      case 'r':
-        return new SVGElement('rect', itemtxt.slice(1))
-      case 'c':
-        return new SVGElement('circle', itemtxt.slice(1))
-      case 'p':
-        return new SVGElement('polygon', itemtxt.slice(1))
-      case 'e':
-        return new SVGElement('ellipse', itemtxt.slice(1))
-      default:
-        return undefined
-    }
   }
 
   private alertList (items: Array<string>) {
