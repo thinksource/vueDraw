@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Realtime draw SVG elements:</h2>
-    <textarea v-model="desc" @change="txtChange" rows="8" cols="50"></textarea>
+    <textarea v-model="desc"  rows="8" cols="50"></textarea>
     <div>
       <h2>Errors in TextArea:</h2>
     </div>
