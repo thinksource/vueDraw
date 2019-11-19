@@ -34,7 +34,6 @@ export default class InputArea extends Vue {
   }
 
   clean () : void {
-    this.alertItems = []
     this.desc = ''
     let DOM = this.$refs.SVGcontainer as HTMLElement
     DOM.innerHTML = ''
