@@ -10,7 +10,7 @@
     </ul>
     <button @click="drawSVG" class="makedraw">Draw SVG</button>
     <button @click="clean" class="clear">Clear</button>
-    <div id="SVGcontainer" ref="SVGcontainer" class="draw">
+    <div id="SVGcontainer" ref="SVGcontainer" class="draw" v-html="rawHtml">
 
     </div>
   </div>
@@ -25,6 +25,7 @@ import { it } from 'mocha'
 export default class InputArea extends Vue {
    @Prop() desc!: string;
   alertItems: Array<SVGError>=[]
+  rawHtml=''
   @Watch('desc')
   txtChange (value: string, oldValue: string) {
     if (typeof value === 'string') {
@@ -40,9 +41,9 @@ export default class InputArea extends Vue {
   }
 
   drawSVG () : void {
-    let DOM = this.$refs.SVGcontainer as HTMLElement
+    // let DOM = this.$refs.SVGcontainer as HTMLElement
     if (!this.desc) {
-      this.fillCanvasTxt('Empty TextArea!', DOM)
+      this.fillCanvasTxt('Empty TextArea!')
       return
     }
     let svgtxt = this.desc.split('\n')
@@ -56,21 +57,14 @@ export default class InputArea extends Vue {
       }
 
       // console.log(result)
-      DOM.innerHTML = `<svg width="250" height="250" xmlns="http://www.w3.org/2000/svg">${result}</svg>`
+      this.rawHtml = `<svg width="250" height="250" xmlns="http://www.w3.org/2000/svg">${result}</svg>`
     } else {
-      this.fillCanvasTxt('Errors during parse SVG Items', DOM)
+      this.fillCanvasTxt('Errors during parse SVG Items')
     }
   }
 
-  private fillCanvasTxt (txt: string, dom: HTMLElement) {
-    dom.innerHTML = `<canvas width="250" id="myCanvas" height="200"
-    style="border:1px solid #d3d3d3;"
-    </canvas>`
-    const canvas = document.getElementById('myCanvas') as HTMLCanvasElement
-    var ctx = canvas.getContext('2d') as CanvasRenderingContext2D
-    ctx.font = '16px Arial'
-    ctx.fillStyle = 'red'
-    ctx.fillText(txt, 10, 50)
+  private fillCanvasTxt (txt: string) {
+    this.rawHtml = `<div style='color: red; font-size:25px;'> ${txt}</div>`
   }
 
   private alertList (items: Array<string>) {
@@ -129,5 +123,12 @@ button {
   width: 250px;
   border-style: solid;
   margin: auto;
+}
+.alertTxt {
+  text-align: center;
+  height: 250px;
+  width: 250px;
+  color: red;
+  font-family: Arial, Helvetica, sans-serif;
 }
 </style>
