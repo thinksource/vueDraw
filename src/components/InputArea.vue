@@ -10,7 +10,7 @@
     </ul>
     <button @click="drawSVG" class="makedraw">Draw SVG</button>
     <button @click="clean" class="clear">Clear</button>
-    <div id="SVGcontainer" ref="SVG" class="draw">
+    <div id="SVGcontainer" ref="SVGcontainer" class="draw">
 
     </div>
   </div>
@@ -36,12 +36,12 @@ export default class InputArea extends Vue {
   clean () : void {
     this.alertItems = []
     this.desc = ''
-    let DOM = document.getElementById('SVGcontainer') as HTMLElement
+    let DOM = this.$refs.SVGcontainer as HTMLElement
     DOM.innerHTML = ''
   }
 
   drawSVG () : void {
-    let DOM = document.getElementById('SVGcontainer') as HTMLElement
+    let DOM = this.$refs.SVGcontainer as HTMLElement
     if (!this.desc) {
       this.fillCanvasTxt('Empty TextArea!', DOM)
       return
