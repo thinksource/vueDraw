@@ -8,7 +8,8 @@
     <ul id="alertList">
       <li v-for="item in alertItems" :key="item">{{ item.toString() }}</li>
     </ul>
-    <button @click="drawSVG">Draw SVG</button>
+    <button @click="drawSVG" class="makedraw">Draw SVG</button>
+    <button @click="clean" class="clear">Clear</button>
     <div id="SVGcontainer" ref="SVG" class="draw">
 
     </div>
@@ -30,6 +31,13 @@ export default class InputArea extends Vue {
       let sItems = value.split(/\n/)
       this.alertItems = this.alertList(sItems)
     }
+  }
+
+  clean () : void {
+    this.alertItems = []
+    this.desc = ''
+    let DOM = document.getElementById('SVGcontainer') as HTMLElement
+    DOM.innerHTML = ''
   }
 
   drawSVG () : void {
@@ -96,10 +104,18 @@ a {
   color: #42b983;
 }
 
-button {
-  background-color: #4CAF50;
-  border: none;
+.makedraw {
   color: white;
+  background-color: #4CAF50;
+}
+
+.clear {
+  color: white;
+  background-color: gray;
+}
+
+button {
+  border: none;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
